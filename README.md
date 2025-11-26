@@ -78,19 +78,19 @@ http://localhost:3000/api/clientes
 
 ---
 
-### 9. Aplicacion Flutter
+### 10. Aplicacion Flutter
 
-## 10. Intalar las dependencias
+## 11. Intalar las dependencias
 - cd gimnasio_flutter
 flutter pub get
 
-## 11. Ejecutar MODO WEB
+## 12. Ejecutar MODO WEB
 - flutter run -d edge
 
 ## O si tienes Chrome
 - flutter run -d chrome
 
-## 🔗 12. Conexión entre Flutter y la API
+## 13. Conexión entre Flutter y la API
 
 # En cliente_service.dart se configura la URL:
 
