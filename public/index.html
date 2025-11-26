@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gimnasio - Gestión de Clientes</title>
+
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px 10px;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 1150px;
+      background: #020617;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+      padding: 24px 24px 32px;
+      border: 1px solid #1f2937;
+    }
+
+    /* HEADER */
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 16px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #22c55e, #16a34a, #065f46);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ecfdf5;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      box-shadow: 0 10px 20px rgba(16, 185, 129, 0.6);
+      overflow: hidden;
+    }
+
+    .logo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .header-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .header-title span {
+      color: #22c55e;
+    }
+
+    .header-subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-top: 3px;
+    }
+
+    .header-badge {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #1f2937;
+      margin: 20px 0;
+    }
+
+    /* LAYOUT PRINCIPAL */
+
+    .app-layout {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .main-area {
+      flex: 3;
+    }
+
+    .sidebar {
+      flex: 1.2;
+      background: #020617;
+      border-radius: 14px;
+      border: 1px solid #1f2937;
+      padding: 14px 14px 18px;
+    }
+
+    .sidebar-title {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .sidebar-subtitle {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+
+    .stat-card {
+      background: #020617;
+      border-radius: 10px;
+      border: 1px solid #1f2937;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 2px;
+      color: #22c55e;
+    }
+
+    .stat-extra {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    /* FORMULARIO */
+
+    .card {
+      background: #020617;
+      border-radius: 14px;
+      border: 1px solid #1f2937;
+      padding: 16px 18px 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px 18px;
+      margin-top: 10px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px #22c55e55;
+    }
+
+    .form-actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      box-shadow: 0 6px 14px rgba(16, 185, 129, 0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(16, 185, 129, 0.6);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #9ca3af;
+      border: 1px solid #4b5563;
+    }
+
+    .btn-secondary:hover {
+      background: #111827;
+      color: #e5e7eb;
+    }
+
+    /* TABLA */
+
+    .table-wrapper {
+      margin-top: 6px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #1f2937;
+      background: #020617;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    thead {
+      background: #020617;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #111827;
+    }
+
+    th {
+      font-weight: 600;
+      color: #9ca3af;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tbody tr:hover {
+      background: rgba(34, 197, 94, 0.08);
+    }
+
+    .tag-activo {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+    }
+
+    .tag-inactivo {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(248, 113, 113, 0.15);
+      color: #fca5a5;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-edit {
+      background: #0ea5e9;
+      color: #0b1120;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .btn-edit:hover {
+      background: #38bdf8;
+    }
+
+    .btn-delete {
+      background: #ef4444;
+      color: #fee2e2;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .btn-delete:hover {
+      background: #f87171;
+    }
+
+    @media (max-width: 900px) {
+      .app-layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .app-container {
+        padding: 16px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-badge {
+        align-self: flex-start;
+      }
+
+      .form-actions {
+        justify-content: stretch;
+      }
+
+      .form-actions .btn {
+        flex: 1;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="header-left">
+        <!-- Si tienes un logo real, guárdalo como public/logo-gimnasio.png y descomenta la línea de <img> -->
+        <div class="logo-circle">
+          <!-- <img src="logo-gimnasio.png" alt="Logo Gimnasio"> -->
+          <span>GYM</span>
+        </div>
+        <div>
+          <h1 class="header-title">Gestión de Clientes del <span>Gimnasio</span></h1>
+          <p class="header-subtitle">Control rápido de clientes, membresías y estado actual</p>
+        </div>
+      </div>
+      <div class="header-badge">Panel de administración</div>
+    </header>
+
+    <div class="app-layout">
+      <!-- Zona principal -->
+      <main class="main-area">
+        <!-- FORMULARIO -->
+        <section class="card">
+          <h2>Registrar / Editar cliente</h2>
+
+          <form id="formCliente">
+            <input type="hidden" id="clienteId">
+
+            <div class="form-grid">
+              <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" required>
+              </div>
+
+              <div>
+                <label for="edad">Edad</label>
+                <input type="number" id="edad" required>
+              </div>
+
+              <div>
+                <label for="membresia">Membresía</label>
+                <select id="membresia">
+                  <option value="Mensual">Mensual</option>
+                  <option value="Trimestral">Trimestral</option>
+                  <option value="Anual">Anual</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" id="btnCancelar" class="btn btn-secondary" style="display:none;">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+        </section>
+
+        <hr>
+
+        <!-- TABLA -->
+        <section style="margin-top: 16px;">
+          <h2>Lista de Clientes</h2>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Edad</th>
+                  <th>Membresía</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaClientes"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <!-- BANNER LATERAL -->
+      <aside class="sidebar">
+        <h2 class="sidebar-title">Resumen del Gimnasio</h2>
+        <p class="sidebar-subtitle">Datos calculados automáticamente según los clientes registrados.</p>
+
+        <div class="stat-card">
+          <p class="stat-label">Clientes totales</p>
+          <p class="stat-value" id="statTotal">0</p>
+        </div>
+
+        <div class="stat-card">
+          <p class="stat-label">Clientes activos</p>
+          <p class="stat-value" id="statActivos">0</p>
+          <p class="stat-extra" id="statPorcActivos">0% del total</p>
+        </div>
+
+        <div class="stat-card">
+          <p class="stat-label">Membresías por tipo</p>
+          <p class="stat-extra">
+            Mensual: <span id="statMensual">0</span><br>
+            Trimestral: <span id="statTrimestral">0</span><br>
+            Anual: <span id="statAnual">0</span>
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
